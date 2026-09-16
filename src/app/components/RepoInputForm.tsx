@@ -7,10 +7,10 @@ interface RepoInputFormProps {
 }
 
 export default function RepoInputForm({ onSubmitRepo }: RepoInputFormProps) {
-  const [repo, SetRepo] = useState<string>("");
+  const [repo, setRepo] = useState<string>("");
 
   function handleRepoChange(e: React.ChangeEvent<HTMLInputElement>) {
-    SetRepo(e.target.value);
+    setRepo(e.target.value);
   }
 
   return (
