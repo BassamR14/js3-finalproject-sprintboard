@@ -1,14 +1,10 @@
 "use server";
 
-import { parseUrl } from "./parseRepoUrl";
-
 const GITHUB_PAT = process.env.GITHUB_PAT;
 
-export default async function fetchGithubData(url: string) {
-  const { owner, repo } = parseUrl(url);
-
+export default async function fetchGithubData(owner: string, repo: string) {
   const response = await fetch(
-    `https://api.github.com/repos/${owner}/${repo}/issues`,
+    `https://api.github.com/repos/${owner}/${repo}/issues?state=all&per_page=100`,
     {
       headers: {
         Authorization: `Bearer ${GITHUB_PAT}`,
@@ -19,5 +15,5 @@ export default async function fetchGithubData(url: string) {
 
   const data = await response.json();
 
-  return data;
+  return data.filter((item: any) => !item.pull_request);
 }

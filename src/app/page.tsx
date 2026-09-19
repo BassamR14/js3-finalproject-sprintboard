@@ -3,18 +3,23 @@
 import styles from "./page.module.css";
 import Navigation from "@/app/components/Navigation";
 import RepoInputForm from "./components/RepoInputForm";
-import fetchGithubData from "./lib/github";
+import { useRouter } from "next/navigation";
+import { parseUrl } from "./lib/parseRepoUrl";
 
 export default function Home() {
-  async function getIssues(url: string) {
-    const issues = await fetchGithubData(url);
-    console.log(issues);
+  const router = useRouter();
+
+  function handleSubmitRepo(url: string) {
+    try {
+      const { owner, repo } = parseUrl(url);
+      router.push(`/board/${owner}/${repo}/issues`);
+    } catch {}
   }
 
   return (
     <div>
       <Navigation />
-      <RepoInputForm onSubmitRepo={getIssues} />
+      <RepoInputForm onSubmitRepo={handleSubmitRepo} />
     </div>
   );
 }
