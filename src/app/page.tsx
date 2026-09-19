@@ -17,9 +17,16 @@ export default function Home() {
   }
 
   return (
-    <div>
+    <div className={styles.page}>
       <Navigation />
-      <RepoInputForm onSubmitRepo={handleSubmitRepo} />
+      <main className={styles.main}>
+        <h1 className={styles.title}>GitHub Issues Board</h1>
+        <p className={styles.subtitle}>
+          Paste a repository URL to see its issues laid out as a board. Issues
+          should have labels "to-do", "ongoing", "completed".
+        </p>
+        <RepoInputForm onSubmitRepo={handleSubmitRepo} />
+      </main>
     </div>
   );
 }

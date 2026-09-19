@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import styles from "./RepoInputForm.module.css";
 
 interface RepoInputFormProps {
   onSubmitRepo: (repo: string) => void;
@@ -13,20 +14,23 @@ export default function RepoInputForm({ onSubmitRepo }: RepoInputFormProps) {
     setRepo(e.target.value);
   }
 
+  function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
+    e.preventDefault();
+    onSubmitRepo(repo);
+  }
+
   return (
-    <div className="repo-input">
+    <form className={styles.form} onSubmit={handleSubmit}>
       <input
+        className={styles.input}
         type="text"
-        placeholder="Add Repo"
+        placeholder="https://github.com/owner/repo"
         value={repo}
         onChange={handleRepoChange}
       />
-      <button
-        onClick={() => {
-          onSubmitRepo(repo);
-        }}>
-        Get Repo Issues
+      <button className={styles.button} type="submit">
+        Get Repository Issues
       </button>
-    </div>
+    </form>
   );
 }

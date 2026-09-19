@@ -1,13 +1,19 @@
 import { Issue } from "../lib/groupIssuesByColumn";
+import styles from "./IssueCard.module.css";
 
 export default function IssueCard({ issue }: { issue: Issue }) {
   const { title, body, state } = issue;
 
   return (
-    <div>
-      <h3>{title}</h3>
-      <p> {body} </p>
-      <p> {state} </p>
-    </div>
+    <article className={styles.card}>
+      <h3 className={styles.title}>{title}</h3>
+      {body && <p className={styles.body}>{body}</p>}
+      <span
+        className={`${styles.state} ${
+          state === "open" ? styles.open : styles.closed
+        }`}>
+        {state}
+      </span>
+    </article>
   );
 }
