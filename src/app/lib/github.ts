@@ -13,6 +13,8 @@ export default async function fetchGithubData(owner: string, repo: string) {
     },
   );
 
+  if (!response.ok) throw new Error(`GitHub responded with ${response.status}`);
+
   const data = await response.json();
 
   return data.filter((item: any) => !item.pull_request);

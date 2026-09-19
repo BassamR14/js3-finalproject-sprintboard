@@ -12,7 +12,7 @@ export default function Home() {
   function handleSubmitRepo(url: string) {
     try {
       const { owner, repo } = parseUrl(url);
-      router.push(`/board/${owner}/${repo}/issues`);
+      router.push(`/board/${owner}/${repo}`);
     } catch {}
   }
 
