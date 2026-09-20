@@ -1,7 +1,7 @@
 import Navigation from "@/app/components/Navigation";
-import fetchGithubData from "@/app/lib/github";
 import KanbanBoard from "@/app/components/KanbanBoard";
 import styles from "./page.module.css";
+import { fetchGithubData } from "@/app/lib/github";
 
 export default async function Board({
   params,

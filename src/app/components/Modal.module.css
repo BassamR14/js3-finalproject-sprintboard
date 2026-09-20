@@ -1,0 +1,23 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: grid;
+  place-items: center;
+  z-index: 50;
+}
+.modal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  width: min(820px, 92vw);
+  height: min(600px, 85vh);
+  overflow: auto;
+  box-shadow: 0 20px 60px rgba(1, 4, 9, 0.6);
+  animation: pop 0.18s ease-out;
+}
