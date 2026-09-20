@@ -23,6 +23,17 @@
 
 .subtitle {
   margin: 0 0 2rem;
-  max-width: 42ch;
+  max-width: 560px;
   color: var(--text-muted);
+}
+
+.note {
+  max-width: 560px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+.note a {
+  color: var(--accent);
 }

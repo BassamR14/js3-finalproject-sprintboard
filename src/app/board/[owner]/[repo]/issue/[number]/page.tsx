@@ -1,5 +1,4 @@
-import IssueDetail from "@/app/components/IssueDetail";
-import { fetchIssueData } from "@/app/lib/github";
+import IssueLoader from "@/app/components/IssueLoader";
 
 export default async function IssuePage({
   params,
@@ -7,7 +6,6 @@ export default async function IssuePage({
   params: Promise<{ owner: string; repo: string; number: string }>;
 }) {
   const { owner, repo, number } = await params;
-  const issue = await fetchIssueData(owner, repo, Number(number));
 
-  return <IssueDetail issue={issue} />;
+  return <IssueLoader owner={owner} repo={repo} number={Number(number)} />;
 }

@@ -1,15 +1,19 @@
-"use server";
+function buildHeaders(pat?: string | null): HeadersInit {
+  return {
+    Accept: "application/vnd.github+json",
+    ...(pat ? { Authorization: `Bearer ${pat}` } : {}),
+  };
+}
 
-const GITHUB_PAT = process.env.GITHUB_PAT;
-
-export async function fetchGithubData(owner: string, repo: string) {
+export async function fetchGithubData(
+  owner: string,
+  repo: string,
+  pat?: string | null,
+) {
   const response = await fetch(
     `https://api.github.com/repos/${owner}/${repo}/issues?state=all&per_page=100`,
     {
-      headers: {
-        Authorization: `Bearer ${GITHUB_PAT}`,
-        Accept: "application/vnd.github+json",
-      },
+      headers: buildHeaders(pat),
     },
   );
 
@@ -24,14 +28,12 @@ export async function fetchIssueData(
   owner: string,
   repo: string,
   number: number,
+  pat?: string | null,
 ) {
   const response = await fetch(
     `https://api.github.com/repos/${owner}/${repo}/issues/${number}`,
     {
-      headers: {
-        Authorization: `Bearer ${GITHUB_PAT}`,
-        Accept: "application/vnd.github+json",
-      },
+      headers: buildHeaders(pat),
     },
   );
 
