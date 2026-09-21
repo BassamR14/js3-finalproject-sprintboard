@@ -43,3 +43,28 @@ export async function fetchIssueData(
 
   return data;
 }
+
+export async function createIssue(
+  owner: string,
+  repo: string,
+  issue: { title: string; body: string; labels: string[] },
+  pat: string,
+) {
+  const response = await fetch(
+    `https://api.github.com/repos/${owner}/${repo}/issues`,
+    {
+      method: "POST",
+      headers: {
+        ...buildHeaders(pat),
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(issue),
+    },
+  );
+
+  if (!response.ok) throw new Error(`GitHub responded with ${response.status}`);
+
+  const data = await response.json();
+
+  return data;
+}

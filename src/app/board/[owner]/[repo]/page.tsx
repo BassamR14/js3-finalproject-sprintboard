@@ -7,6 +7,7 @@ import KanbanBoard from "@/app/components/KanbanBoard";
 import styles from "./page.module.css";
 import { fetchGithubData } from "@/app/lib/github";
 import { Issue } from "@/app/lib/groupIssuesByColumn";
+import Link from "next/link";
 
 export default function Board() {
   const { owner, repo } = useParams<{ owner: string; repo: string }>();
@@ -25,10 +26,17 @@ export default function Board() {
     <div className={styles.page}>
       <Navigation />
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          <span className={styles.owner}>{owner} / </span>
-          {repo}
-        </h1>
+        <div className={styles.header}>
+          <h1 className={styles.title}>
+            <span className={styles.owner}>{owner} / </span>
+            {repo}
+          </h1>
+          <Link
+            href={`/board/${owner}/${repo}/issue/new`}
+            className={styles.newIssueButton}>
+            New issue
+          </Link>
+        </div>
         {error && <p>Something went wrong: {error}</p>}
         {!error && !issues && <p>Loading…</p>}
         {issues && <KanbanBoard data={issues} />}{" "}

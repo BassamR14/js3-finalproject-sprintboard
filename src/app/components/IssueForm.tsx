@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import styles from "./IssueForm.module.css";
+import CloseButton from "./CloseButton";
 
 interface IssueInputFormProps {
   onSubmitIssue: (title: string, body: string, label: string) => void;
@@ -29,31 +31,42 @@ export default function IssueForm({ onSubmitIssue }: IssueInputFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Add Title"
-        value={title}
-        onChange={handleTitleChange}
-        required
-      />
-      <textarea
-        placeholder="Add Description"
-        value={body}
-        onChange={handleBodyChange}
-      />
-      <select
-        name="labels"
-        id="labels"
-        value={label}
-        onChange={handleLabelChange}
-        required>
-        <option value="">Select Label</option>
-        <option value="to-do">To Do</option>
-        <option value="ongoing">Ongoing</option>
-        <option value="completed">Completed</option>
-      </select>
-      <button>Create Issue</button>
-    </form>
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <h1 className={styles.title}>Create Issue</h1>
+        <CloseButton />
+      </div>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <input
+          type="text"
+          placeholder="Add Title"
+          value={title}
+          onChange={handleTitleChange}
+          className={styles.input}
+          required
+        />
+        <textarea
+          placeholder="Add Description"
+          value={body}
+          onChange={handleBodyChange}
+          className={`${styles.input} ${styles.textarea}`}
+        />
+        <select
+          name="labels"
+          id="labels"
+          value={label}
+          onChange={handleLabelChange}
+          className={styles.input}
+          required>
+          <option value="">Select Label</option>
+          <option value="to-do">To Do</option>
+          <option value="ongoing">Ongoing</option>
+          <option value="completed">Completed</option>
+        </select>
+        <button type="submit" className={styles.submit}>
+          Create Issue
+        </button>
+      </form>
+    </div>
   );
 }

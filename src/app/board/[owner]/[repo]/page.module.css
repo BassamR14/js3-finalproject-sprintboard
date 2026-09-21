@@ -12,6 +12,12 @@
   padding: 1.5rem;
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .title {
   margin: 0 0 1.25rem;
   font-size: 1.5rem;
@@ -21,4 +27,20 @@
 .owner {
   color: var(--text-muted);
   font-weight: 400;
+}
+
+.newIssueButton {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background 0.15s ease;
+}
+
+.newIssueButton:hover {
+  background: var(--accent-hover);
 }
