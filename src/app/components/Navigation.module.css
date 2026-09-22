@@ -11,7 +11,7 @@
 .link {
   padding: 0.4rem 0.8rem;
   border-radius: var(--radius);
-  color: var(--text-muted);
+  color: var(--text);
   transition:
     color 0.15s,
     background 0.15s;
