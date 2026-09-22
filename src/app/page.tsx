@@ -12,6 +12,10 @@ export default function Home() {
   function handleSubmitRepo(url: string) {
     try {
       const { owner, repo } = parseUrl(url);
+
+      const repoData = { owner, repo };
+      localStorage.setItem("repoData", JSON.stringify(repoData));
+
       router.push(`/board/${owner}/${repo}`);
     } catch {}
   }

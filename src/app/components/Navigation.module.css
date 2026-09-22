@@ -58,3 +58,13 @@
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
+
+.linkDisabled {
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--radius);
+  color: var(--text-muted);
+  transition:
+    color 0.15s,
+    background 0.15s;
+  cursor: not-allowed;
+}
