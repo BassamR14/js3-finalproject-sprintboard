@@ -1,3 +1,5 @@
+import { IssuesProvider } from "@/app/context/IssuesContext";
+
 export default function BoardLayout({
   children,
   modal,
@@ -6,9 +8,9 @@ export default function BoardLayout({
   modal: React.ReactNode;
 }) {
   return (
-    <>
+    <IssuesProvider>
       {children}
       {modal}
-    </>
+    </IssuesProvider>
   );
 }

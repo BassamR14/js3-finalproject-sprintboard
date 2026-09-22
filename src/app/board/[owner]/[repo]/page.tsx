@@ -6,12 +6,12 @@ import Navigation from "@/app/components/Navigation";
 import KanbanBoard from "@/app/components/KanbanBoard";
 import styles from "./page.module.css";
 import { fetchGithubData } from "@/app/lib/github";
-import { Issue } from "@/app/lib/groupIssuesByColumn";
 import Link from "next/link";
+import { useIssues } from "@/app/context/useIssues";
 
 export default function Board() {
   const { owner, repo } = useParams<{ owner: string; repo: string }>();
-  const [issues, setIssues] = useState<Issue[] | null>(null);
+  const { issues, setIssues } = useIssues();
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -20,7 +20,7 @@ export default function Board() {
     fetchGithubData(owner, repo, pat)
       .then(setIssues)
       .catch((e) => setError(e.message));
-  }, [owner, repo]);
+  }, [owner, repo, setIssues]);
 
   return (
     <div className={styles.page}>

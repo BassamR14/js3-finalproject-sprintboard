@@ -4,6 +4,7 @@ import { useState } from "react";
 import { createIssue } from "@/app/lib/github";
 import IssueForm from "./IssueForm";
 import { useRouter } from "next/navigation";
+import { useIssues } from "../context/useIssues";
 
 interface Props {
   owner: string;
@@ -18,6 +19,7 @@ export default function CreateIssueContainer({
 }: Props) {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
+  const { addIssue } = useIssues();
 
   const errorStyle: React.CSSProperties = {
     color: "#f85149",
@@ -37,7 +39,9 @@ export default function CreateIssueContainer({
     }
 
     createIssue(owner, repo, { title, body, labels: label ? [label] : [] }, pat)
-      .then(() => {
+      .then((newIssue) => {
+        addIssue(newIssue);
+
         if (isModal) {
           router.back();
         } else {
