@@ -62,3 +62,20 @@
   font-style: italic;
   font-size: 0.9rem;
 }
+
+.labels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.label {
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  background: var(--accent);
+  color: var(--text);
+}

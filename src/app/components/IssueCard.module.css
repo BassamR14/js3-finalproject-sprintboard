@@ -37,6 +37,7 @@
   text-transform: capitalize;
   border-radius: 999px;
   border: 1px solid;
+  margin-bottom: 0.25rem;
 }
 
 .open {
@@ -49,4 +50,21 @@
   color: #a371f7;
   border-color: rgba(163, 113, 247, 0.4);
   background: rgba(163, 113, 247, 0.1);
+}
+
+.labels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.label {
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  background: var(--accent);
+  color: var(--text);
 }

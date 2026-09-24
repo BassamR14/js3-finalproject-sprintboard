@@ -3,7 +3,7 @@ import styles from "./IssueDetail.module.css";
 import CloseButton from "./CloseButton";
 
 export default function IssueDetail({ issue }: { issue: Issue }) {
-  const { title, body, state } = issue;
+  const { title, body, state, labels } = issue;
 
   return (
     <article className={styles.issue}>
@@ -18,6 +18,16 @@ export default function IssueDetail({ issue }: { issue: Issue }) {
           <CloseButton />
         </div>
         <h3 className={styles.title}>{title}</h3>
+
+        {labels?.length > 0 && (
+          <section className={styles.labels}>
+            {labels.map((label, i) => (
+              <span key={i} className={styles.label}>
+                {label.name}
+              </span>
+            ))}
+          </section>
+        )}
       </header>
 
       {body ? (
