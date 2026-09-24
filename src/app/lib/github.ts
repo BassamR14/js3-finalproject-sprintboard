@@ -82,3 +82,31 @@ export async function createIssue(
 
   return data;
 }
+
+export async function updateIssue(
+  owner: string,
+  repo: string,
+  number: number,
+  issue: { title: string; body: string; labels: string[] },
+  pat: string,
+) {
+  if (!pat) throw new Error("Add a GitHub token before editing an issue.");
+
+  const response = await fetch(
+    `https://api.github.com/repos/${owner}/${repo}/issues/${number}`,
+    {
+      method: "PATCH",
+      headers: {
+        ...buildHeaders(pat),
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(issue),
+    },
+  );
+
+  await checkResponse(response);
+
+  const data = await response.json();
+
+  return data;
+}

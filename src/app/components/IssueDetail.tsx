@@ -1,8 +1,15 @@
 import { Issue } from "@/app/lib/groupIssuesByColumn";
 import styles from "./IssueDetail.module.css";
 import CloseButton from "./CloseButton";
+import Link from "next/link";
 
-export default function IssueDetail({ issue }: { issue: Issue }) {
+interface Props {
+  issue: Issue;
+  owner: string;
+  repo: string;
+}
+
+export default function IssueDetail({ issue, owner, repo }: Props) {
   const { title, body, state, labels } = issue;
 
   return (
@@ -35,6 +42,14 @@ export default function IssueDetail({ issue }: { issue: Issue }) {
       ) : (
         <p className={styles.empty}>No description provided.</p>
       )}
+
+      <footer className={styles.footer}>
+        <Link
+          href={`/board/${owner}/${repo}/issue/${issue.number}/edit`}
+          className={styles.editLink}>
+          Edit
+        </Link>
+      </footer>
     </article>
   );
 }

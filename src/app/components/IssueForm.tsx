@@ -6,12 +6,24 @@ import CloseButton from "./CloseButton";
 
 interface IssueInputFormProps {
   onSubmitIssue: (title: string, body: string, label: string) => void;
+  pageTitle: string;
+  submitText: string;
+  initialTitle?: string;
+  initialBody?: string;
+  initialLabel?: string;
 }
 
-export default function IssueForm({ onSubmitIssue }: IssueInputFormProps) {
-  const [title, setTitle] = useState<string>("");
-  const [body, setBody] = useState<string>("");
-  const [label, setLabel] = useState<string>("");
+export default function IssueForm({
+  onSubmitIssue,
+  pageTitle,
+  submitText,
+  initialTitle = "",
+  initialBody = "",
+  initialLabel = "",
+}: IssueInputFormProps) {
+  const [title, setTitle] = useState<string>(initialTitle);
+  const [body, setBody] = useState<string>(initialBody);
+  const [label, setLabel] = useState<string>(initialLabel);
 
   function handleTitleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setTitle(e.target.value);
@@ -33,7 +45,7 @@ export default function IssueForm({ onSubmitIssue }: IssueInputFormProps) {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h1 className={styles.title}>Create Issue</h1>
+        <h1 className={styles.title}>{pageTitle}</h1>
         <CloseButton />
       </div>
       <form onSubmit={handleSubmit} className={styles.form}>
@@ -64,7 +76,7 @@ export default function IssueForm({ onSubmitIssue }: IssueInputFormProps) {
           <option value="completed">Completed</option>
         </select>
         <button type="submit" className={styles.submit}>
-          Create Issue
+          {submitText}
         </button>
       </form>
     </div>

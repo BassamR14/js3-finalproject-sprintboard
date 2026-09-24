@@ -1,25 +1,33 @@
 "use client";
 
 import { useState } from "react";
-import { createIssue } from "@/app/lib/github";
+import { updateIssue } from "@/app/lib/github";
 import IssueForm from "./IssueForm";
 import { useRouter } from "next/navigation";
 import { useIssues } from "../context/useIssues";
+import {
+  columnLabels,
+  getColumnLabel,
+  Issue,
+} from "../lib/groupIssuesByColumn";
 
 interface Props {
   owner: string;
   repo: string;
+  issue: Issue;
   isModal?: boolean;
 }
 
-export default function CreateIssueContainer({
+export default function EditIssueContainer({
   owner,
   repo,
+  issue,
   isModal = false,
 }: Props) {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
-  const { addIssue } = useIssues();
+  const { editIssue } = useIssues();
+  const currentColumnLabel = getColumnLabel(issue) ?? "";
 
   const errorStyle: React.CSSProperties = {
     color: "#f85149",
@@ -38,9 +46,15 @@ export default function CreateIssueContainer({
       return;
     }
 
-    createIssue(owner, repo, { title, body, labels: label ? [label] : [] }, pat)
-      .then((newIssue) => {
-        addIssue(newIssue);
+    const otherLabels = issue.labels
+      .map((l) => l.name)
+      .filter((name) => !columnLabels.includes(name));
+
+    const labels = label ? [...otherLabels, label] : otherLabels;
+
+    updateIssue(owner, repo, issue.number, { title, body, labels }, pat)
+      .then((updated) => {
+        editIssue(updated);
 
         if (isModal) {
           router.back();
@@ -55,8 +69,11 @@ export default function CreateIssueContainer({
     <>
       <IssueForm
         onSubmitIssue={handleSubmitIssue}
-        pageTitle="Create Issue"
-        submitText="Create Issue"
+        pageTitle="Edit Issue"
+        submitText="Save Changes"
+        initialTitle={issue.title}
+        initialBody={issue.body ?? ""}
+        initialLabel={currentColumnLabel}
       />
       {error && <p style={errorStyle}>Something went wrong: {error}</p>}
     </>

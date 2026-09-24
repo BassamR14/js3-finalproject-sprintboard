@@ -26,5 +26,5 @@ export default function IssueLoader({ owner, repo, number }: IssueLoaderProps) {
   if (error) return <p>Something went wrong: {error}</p>;
   if (!issue) return <p>Loading…</p>;
 
-  return <IssueDetail issue={issue} />;
+  return <IssueDetail issue={issue} owner={owner} repo={repo} />;
 }
