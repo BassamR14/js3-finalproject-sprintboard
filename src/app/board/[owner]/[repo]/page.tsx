@@ -20,7 +20,7 @@ export default function Board() {
     fetchGithubData(owner, repo, pat)
       .then(setIssues)
       .catch((e) => setError(e.message));
-  }, [owner, repo, setIssues]);
+  }, [owner, repo]);
 
   return (
     <div className={styles.page}>

@@ -5,6 +5,18 @@ function buildHeaders(pat?: string | null): HeadersInit {
   };
 }
 
+async function checkResponse(response: Response) {
+  if (response.ok) return;
+
+  if (response.status === 401) {
+    throw new Error(
+      "Your GitHub token was rejected. It may be invalid or expired — add a new one on the home page.",
+    );
+  }
+
+  throw new Error(`GitHub responded with ${response.status}`);
+}
+
 export async function fetchGithubData(
   owner: string,
   repo: string,
@@ -17,7 +29,7 @@ export async function fetchGithubData(
     },
   );
 
-  if (!response.ok) throw new Error(`GitHub responded with ${response.status}`);
+  await checkResponse(response);
 
   const data = await response.json();
 
@@ -37,7 +49,7 @@ export async function fetchIssueData(
     },
   );
 
-  if (!response.ok) throw new Error(`GitHub responded with ${response.status}`);
+  await checkResponse(response);
 
   const data = await response.json();
 
@@ -50,6 +62,8 @@ export async function createIssue(
   issue: { title: string; body: string; labels: string[] },
   pat: string,
 ) {
+  if (!pat) throw new Error("Add a GitHub token before creating an issue.");
+
   const response = await fetch(
     `https://api.github.com/repos/${owner}/${repo}/issues`,
     {
@@ -62,7 +76,7 @@ export async function createIssue(
     },
   );
 
-  if (!response.ok) throw new Error(`GitHub responded with ${response.status}`);
+  await checkResponse(response);
 
   const data = await response.json();
 
