@@ -1,16 +1,26 @@
+"use client";
+
 import { Issue } from "../lib/groupIssuesByColumn";
 import IssueCard from "./IssueCard";
 import styles from "./KanbanColumn.module.css";
+import { useDroppable } from "@dnd-kit/core";
 
 export default function KanbanColumn({
+  id,
   title,
   issues,
 }: {
+  id: string;
   title: string;
   issues: Issue[];
 }) {
+  const { setNodeRef, isOver } = useDroppable({ id });
+
   return (
-    <section className={styles.column}>
+    <section
+      ref={setNodeRef}
+      className={styles.column}
+      style={{ outline: isOver ? "2px solid #888" : undefined }}>
       <header className={styles.header}>
         <h2 className={styles.title}>{title}</h2>
         <span className={styles.count}>{issues.length}</span>
