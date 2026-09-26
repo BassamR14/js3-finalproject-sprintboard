@@ -31,12 +31,12 @@ export default function Home() {
         <h1 className={styles.title}>GitHub Issues Board</h1>
         <p className={styles.subtitle}>
           Paste a repository URL to view its issues as a board. Issues are
-          sorted into columns by label: <code>to-do</code>, <code>ongoing</code>
+          sorted into columns by label: <code>to-do</code>, <code>ongoing</code>{" "}
           and <code>completed</code>.
         </p>
         <p className={styles.note}>
           Want to create or edit issues? Add a GitHub Personal Access Token
-          (PAT) in the field below. Not sure how to get one? See the
+          (PAT) in the field below. Not sure how to get one? See the{" "}
           <a
             href="https://github.com/BassamR14/js3-finalproject-sprintboard"
             target="_blank">

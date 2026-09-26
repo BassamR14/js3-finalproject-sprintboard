@@ -46,3 +46,11 @@
   font-size: 0.9rem;
   color: var(--text-muted);
 }
+
+@media (max-width: 425px) {
+  .column {
+    flex: 0 0 auto;
+    height: 60vh;
+    overflow-y: auto;
+  }
+}

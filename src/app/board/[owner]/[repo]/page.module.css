@@ -44,3 +44,9 @@
 .newIssueButton:hover {
   background: var(--accent-hover);
 }
+
+@media (max-width: 425px) {
+  .newIssueButton {
+    padding: 0.35rem 0.75rem;
+  }
+}

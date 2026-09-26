@@ -6,3 +6,18 @@
   gap: 1rem;
   overflow-x: auto;
 }
+
+@media (max-width: 425px) {
+  .board {
+    display: flex;
+    flex-direction: column;
+    overflow-x: visible;
+    overflow-y: auto;
+  }
+
+  .board > * {
+    flex: 0 0 auto;
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+}
