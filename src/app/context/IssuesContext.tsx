@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
+import { createContext, useState } from "react";
 import { Issue } from "@/app/lib/groupIssuesByColumn";
 
 interface IssuesContextValue {

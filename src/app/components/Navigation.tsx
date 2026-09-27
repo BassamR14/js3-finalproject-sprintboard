@@ -40,7 +40,6 @@ export default function Navigation() {
       <Link href="/" className={styles.link}>
         Home
       </Link>
-      {/* /board is static at the moment, save last viewed repo in local storage and link to that. */}
       {boardHref ? (
         <Link href={boardHref} className={styles.link}>
           Board
