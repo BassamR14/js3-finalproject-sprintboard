@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  output: "export",
+  basePath: "/js3-finalproject-sprintboard",
+  assetPrefix: "/js3-finalproject-sprintboard/",
+  images: { unoptimized: true },
 };
 
 export default nextConfig;
