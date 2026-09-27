@@ -1,6 +1,6 @@
 "use client";
 
-import { useIssues } from "../context/useIssues";
+import { useIssues } from "../hooks/useIssues";
 import EditIssueContainer from "./EditIssueContainer";
 
 interface Props {

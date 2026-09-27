@@ -6,7 +6,7 @@ import styles from "./KanbanBoard.module.css";
 import { useState } from "react";
 import { useParams } from "next/navigation";
 import { updateIssue } from "../lib/github";
-import { useIssues } from "../context/useIssues";
+import { useIssues } from "../hooks/useIssues";
 import IssueCard from "./IssueCard";
 import {
   DndContext,

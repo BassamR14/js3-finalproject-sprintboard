@@ -4,7 +4,7 @@ import { useState } from "react";
 import { createIssue } from "@/app/lib/github";
 import IssueForm from "./IssueForm";
 import { useRouter } from "next/navigation";
-import { useIssues } from "../context/useIssues";
+import { useIssues } from "../hooks/useIssues";
 
 interface Props {
   owner: string;

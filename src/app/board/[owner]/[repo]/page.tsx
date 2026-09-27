@@ -7,7 +7,7 @@ import KanbanBoard from "@/app/components/KanbanBoard";
 import styles from "./page.module.css";
 import { fetchGithubData } from "@/app/lib/github";
 import Link from "next/link";
-import { useIssues } from "@/app/context/useIssues";
+import { useIssues } from "@/app/hooks/useIssues";
 
 export default function Board() {
   const { owner, repo } = useParams<{ owner: string; repo: string }>();

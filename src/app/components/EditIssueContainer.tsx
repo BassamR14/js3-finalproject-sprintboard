@@ -4,7 +4,7 @@ import { useState } from "react";
 import { updateIssue } from "@/app/lib/github";
 import IssueForm from "./IssueForm";
 import { useRouter } from "next/navigation";
-import { useIssues } from "../context/useIssues";
+import { useIssues } from "../hooks/useIssues";
 import {
   columnLabels,
   getColumnLabel,
