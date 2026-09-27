@@ -5,23 +5,42 @@ import Navigation from "@/app/components/Navigation";
 import RepoInputForm from "./components/RepoInputForm";
 import { useRouter } from "next/navigation";
 import { parseUrl } from "./lib/parseRepoUrl";
+import { isValidPatFormat } from "./lib/validatePat";
+import { useState } from "react";
 
 export default function Home() {
   const router = useRouter();
+  const [repoError, setRepoError] = useState<string | null>(null);
+  const [patError, setPatError] = useState<string | null>(null);
 
-  function handleSubmitRepo(url: string) {
+  function handleSubmit(url: string, pat: string) {
+    setRepoError(null);
+    setPatError(null);
+
+    const trimmedPAT = pat.trim();
+    if (trimmedPAT && !isValidPatFormat(trimmedPAT)) {
+      setPatError("Please enter a valid GitHub token.");
+      return;
+    }
+
     try {
       const { owner, repo } = parseUrl(url);
 
-      const repoData = { owner, repo };
-      localStorage.setItem("repoData", JSON.stringify(repoData));
+      if (trimmedPAT) {
+        localStorage.setItem("pat-token", trimmedPAT);
+      }
+      localStorage.setItem("repoData", JSON.stringify({ owner, repo }));
 
-      router.push(`/board/${owner}/${repo}`);
-    } catch {}
-  }
-
-  function handleSubmitPat(pat: string) {
-    localStorage.setItem("pat-token", pat);
+      router.push(
+        `/board/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}`,
+      );
+    } catch (err) {
+      setRepoError(
+        err instanceof Error
+          ? err.message
+          : "Please enter a valid GitHub repo URL.",
+      );
+    }
   }
 
   return (
@@ -44,10 +63,9 @@ export default function Home() {
           </a>
           .
         </p>
-        <RepoInputForm
-          onSubmitRepo={handleSubmitRepo}
-          onSubmitPat={handleSubmitPat}
-        />
+        <RepoInputForm onSubmit={handleSubmit} />
+        {patError && <p className="error">{patError}</p>}
+        {repoError && <p className="error">{repoError}</p>}
       </main>
     </div>
   );

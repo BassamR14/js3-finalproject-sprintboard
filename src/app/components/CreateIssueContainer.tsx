@@ -21,13 +21,6 @@ export default function CreateIssueContainer({
   const [error, setError] = useState<string | null>(null);
   const { addIssue } = useIssues();
 
-  const errorStyle: React.CSSProperties = {
-    color: "#f85149",
-    fontSize: "0.875rem",
-    margin: 0,
-    textAlign: "center",
-  };
-
   function handleSubmitIssue(title: string, body: string, label: string) {
     setError(null);
 
@@ -58,7 +51,7 @@ export default function CreateIssueContainer({
         pageTitle="Create Issue"
         submitText="Create Issue"
       />
-      {error && <p style={errorStyle}>Something went wrong: {error}</p>}
+      {error && <p className="error">Something went wrong: {error}</p>}
     </>
   );
 }

@@ -13,6 +13,9 @@ interface IssueInputFormProps {
   initialLabel?: string;
 }
 
+const TITLE_MAX_LENGTH = 256;
+const BODY_MAX_LENGTH = 65536;
+
 export default function IssueForm({
   onSubmitIssue,
   pageTitle,
@@ -24,6 +27,7 @@ export default function IssueForm({
   const [title, setTitle] = useState<string>(initialTitle);
   const [body, setBody] = useState<string>(initialBody);
   const [label, setLabel] = useState<string>(initialLabel);
+  const [error, setError] = useState<string | null>(null);
 
   function handleTitleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setTitle(e.target.value);
@@ -39,7 +43,27 @@ export default function IssueForm({
 
   function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
-    onSubmitIssue(title, body, label);
+    setError(null);
+
+    const trimmedTitle = title.trim();
+    const trimmedBody = body.trim();
+
+    if (!trimmedTitle) {
+      setError("Title cannot be empty.");
+      return;
+    }
+
+    if (trimmedTitle.length > TITLE_MAX_LENGTH) {
+      setError(`Title must be ${TITLE_MAX_LENGTH} characters or fewer.`);
+      return;
+    }
+
+    if (trimmedBody.length > BODY_MAX_LENGTH) {
+      setError(`Description must be ${BODY_MAX_LENGTH} characters or fewer.`);
+      return;
+    }
+
+    onSubmitIssue(trimmedTitle, trimmedBody, label);
   }
 
   return (
@@ -55,6 +79,7 @@ export default function IssueForm({
           value={title}
           onChange={handleTitleChange}
           className={styles.input}
+          maxLength={TITLE_MAX_LENGTH}
           required
         />
         <textarea
@@ -62,6 +87,7 @@ export default function IssueForm({
           value={body}
           onChange={handleBodyChange}
           className={`${styles.input} ${styles.textarea}`}
+          maxLength={BODY_MAX_LENGTH}
         />
         <select
           name="labels"
@@ -78,6 +104,7 @@ export default function IssueForm({
         <button type="submit" className={styles.submit}>
           {submitText}
         </button>
+        {error && <p className="error">{error}</p>}
       </form>
     </div>
   );

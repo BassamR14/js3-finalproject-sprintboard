@@ -29,13 +29,6 @@ export default function EditIssueContainer({
   const { editIssue } = useIssues();
   const currentColumnLabel = getColumnLabel(issue) ?? "";
 
-  const errorStyle: React.CSSProperties = {
-    color: "#f85149",
-    fontSize: "0.875rem",
-    margin: 0,
-    textAlign: "center",
-  };
-
   function handleSubmitIssue(title: string, body: string, label: string) {
     setError(null);
 
@@ -75,7 +68,7 @@ export default function EditIssueContainer({
         initialBody={issue.body ?? ""}
         initialLabel={currentColumnLabel}
       />
-      {error && <p style={errorStyle}>Something went wrong: {error}</p>}
+      {error && <p className="error">Something went wrong: {error}</p>}
     </>
   );
 }

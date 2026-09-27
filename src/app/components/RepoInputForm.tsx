@@ -4,14 +4,10 @@ import { useState } from "react";
 import styles from "./RepoInputForm.module.css";
 
 interface RepoInputFormProps {
-  onSubmitRepo: (repo: string) => void;
-  onSubmitPat: (pat: string) => void;
+  onSubmit: (repo: string, pat: string) => void;
 }
 
-export default function RepoInputForm({
-  onSubmitRepo,
-  onSubmitPat,
-}: RepoInputFormProps) {
+export default function RepoInputForm({ onSubmit }: RepoInputFormProps) {
   const [repo, setRepo] = useState<string>("");
   const [pat, setPat] = useState<string>("");
 
@@ -25,8 +21,7 @@ export default function RepoInputForm({
 
   function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (pat.trim()) onSubmitPat(pat.trim());
-    onSubmitRepo(repo);
+    onSubmit(repo, pat);
   }
 
   return (
